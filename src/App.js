@@ -3,19 +3,22 @@ import firebase from './lib/firebase';
 import '@firebase/firestore';
 import { FirestoreProvider } from 'react-firestore';
 import './App.css';
-import Nav from './components/Nav';
-import { BrowserRouter, Route } from 'react-router-dom';
-import ShoppingList from './pages/ShoppingList';
-import AddItem from './pages/AddItem';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ShoppingList from './pages/shopping-list/ShoppingList';
+import AddItem from './pages/add-item/AddItem';
+import Welcome from './pages/welcome/Welcome';
+import { PATHS } from './utils/constants';
 
 function App() {
   return (
     <FirestoreProvider firebase={firebase}>
-      <div className="App">
+      <div className="page">
         <BrowserRouter>
-          <Route path="/list" component={ShoppingList} />
-          <Route path="/add" component={AddItem} />
-          <Nav />
+          <Switch>
+            <Route path={PATHS.list} component={ShoppingList} />
+            <Route path={PATHS.add} component={AddItem} />
+            <Route path="/" component={Welcome} />
+          </Switch>
         </BrowserRouter>
       </div>
     </FirestoreProvider>
