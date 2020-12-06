@@ -1,12 +1,13 @@
 import React from 'react';
 import Nav from './Nav';
+import Page from './Page';
 
 const NavPage = ({ children }) => {
   return (
-    <div className="page">
+    <Page>
       {children}
       <Nav />
-    </div>
+    </Page>
   );
 };
 

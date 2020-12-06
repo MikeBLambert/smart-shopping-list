@@ -6,9 +6,10 @@ import { Router } from 'react-router-dom';
 export const createIntegrationTestWrapper = (
   Component,
   { history = createMemoryHistory(), props } = {},
-) =>
-  render(
+) => {
+  return render(
     <Router history={history}>
       <Component {...props} />
     </Router>,
   );
+};

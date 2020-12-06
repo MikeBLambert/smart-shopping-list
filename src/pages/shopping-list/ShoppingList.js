@@ -1,22 +1,15 @@
-import React, { useEffect } from 'react';
-import { shape, func } from 'prop-types';
-import NavPage from '../../components/NavPage';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
+import styled from 'styled-components';
+import ShoppingListItem from './ShoppingListItem';
 
-const ShoppingList = ({ history }) => {
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (!storedToken) history.push('/');
-  }, [history]);
-  return (
-    <NavPage>
-      <h1>I am a shopping list</h1>
-    </NavPage>
-  );
+const List = styled.ul`
+  width: 100%;
+`;
+
+const ShoppingList = ({ data, isLoading }) => {
+  return isLoading ? <p>Loading</p> : <List>{data.map(ShoppingListItem)}</List>;
 };
 
-ShoppingList.propTypes = {
-  history: shape({ push: func }).isRequired,
-};
+ShoppingList.propTypes = {};
 
-export default withRouter(ShoppingList);
+export default ShoppingList;
