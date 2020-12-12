@@ -3,6 +3,7 @@ import { shape, func } from 'prop-types';
 import { withFirestore } from 'react-firestore';
 import NavPage from '../../components/NavPage';
 import { useToken } from '../../utils/hooks';
+import ErrorMessage from '../../components/ErrorMessage';
 
 const RADIOS = {
   Soon: 7,
@@ -14,6 +15,7 @@ const AddItemScreen = ({ firestore }) => {
   const token = useToken();
 
   const [itemName, setItemName] = useState('');
+  const [error, setError] = useState('');
   const [daysToNextPurchase, setDaysToNextPurchase] = useState(RADIOS.Soon);
 
   const handleItemNameChange = ({ target: { value } }) => {
@@ -23,20 +25,26 @@ const AddItemScreen = ({ firestore }) => {
     setDaysToNextPurchase(parseInt(value));
   };
 
-  const handleSubmit = (e) => {
+  const convertToDocId = (docName = '') =>
+    docName.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!token) return;
-    firestore
-      .collection(token)
-      .add({
-        userToken: token,
-        lastPurchaseDate: null,
+    const docId = convertToDocId(itemName);
+    const existingDoc = await firestore.collection(token).doc(docId).get();
+
+    if (existingDoc.exists) {
+      setError(`${itemName} already in shopping list.`);
+    } else {
+      setError('');
+      firestore.collection(token).doc(docId).set({
         itemName,
+        lastPurchaseDate: null,
         daysToNextPurchase,
-      })
-      .then((response) => console.log({ response }))
-      .catch((error) => console.log({ error }));
+      });
+    }
   };
+
   return (
     <NavPage>
       <h1>Smart Shopping List</h1>
@@ -64,8 +72,11 @@ const AddItemScreen = ({ firestore }) => {
             </Fragment>
           ))}
         </fieldset>
-        <button type="submit">Add Item</button>
+        <button type="submit" disabled={!itemName}>
+          Add Item
+        </button>
       </form>
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </NavPage>
   );
 };
@@ -73,5 +84,7 @@ const AddItemScreen = ({ firestore }) => {
 AddItemScreen.propTypes = {
   firestore: shape({ collection: func }).isRequired,
 };
+
+export const AddItemScreenUnwrapped = AddItemScreen;
 
 export default withFirestore(AddItemScreen);

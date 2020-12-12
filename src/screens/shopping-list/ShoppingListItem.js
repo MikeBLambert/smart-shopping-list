@@ -10,7 +10,6 @@ const StyledContainer = styled.li`
 const StyledButton = styled.button``;
 
 const ListItem = ({ itemName }, index) => {
-  // const
   return (
     <StyledContainer key={`${itemName}_${index}`}>
       <input type="checkbox" id="item" />
