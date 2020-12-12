@@ -1,5 +1,5 @@
 import { cleanup } from '@testing-library/react';
-import Welcome from './Welcome';
+import Welcome from './WelcomeScreen';
 import { createMemoryHistory } from 'history';
 import { PATHS } from '../../utils/constants';
 import { createIntegrationTestWrapper } from '../../utils/testUtils';

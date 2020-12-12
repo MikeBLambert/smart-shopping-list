@@ -10,7 +10,7 @@ const RADIOS = {
   'Not Soon': 30,
 };
 
-const AddItemPage = ({ firestore }) => {
+const AddItemScreen = ({ firestore }) => {
   const token = useToken();
 
   const [itemName, setItemName] = useState('');
@@ -70,8 +70,8 @@ const AddItemPage = ({ firestore }) => {
   );
 };
 
-AddItemPage.propTypes = {
+AddItemScreen.propTypes = {
   firestore: shape({ collection: func }).isRequired,
 };
 
-export default withFirestore(AddItemPage);
+export default withFirestore(AddItemScreen);

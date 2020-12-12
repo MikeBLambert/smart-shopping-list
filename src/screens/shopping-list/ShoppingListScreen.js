@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import NavPage from '../../components/NavPage';
 import { FirestoreCollection, withFirestore } from 'react-firestore';
 import { useToken } from '../../utils/hooks';
 import ShoppingList from './ShoppingList';
 
-const ShoppingListPage = () => {
+const ShoppingListScreen = () => {
   const token = useToken();
+  if (!token) return <Fragment />;
   return (
     <NavPage>
       <h1>Smart Shopping List</h1>
@@ -14,6 +15,6 @@ const ShoppingListPage = () => {
   );
 };
 
-ShoppingListPage.propTypes = {};
+ShoppingListScreen.propTypes = {};
 
-export default withFirestore(ShoppingListPage);
+export default withFirestore(ShoppingListScreen);

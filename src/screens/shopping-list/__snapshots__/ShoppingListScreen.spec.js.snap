@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ShoppingListPage /> does not redirect to welcome page if there is a token stored in localStorage 1`] = `
+exports[`<ShoppingListScreen /> does not redirect to welcome page if there is a token stored in localStorage 1`] = `
 <div>
   <div
     class="sc-eCssSg dtjwNM"
@@ -8,9 +8,7 @@ exports[`<ShoppingListPage /> does not redirect to welcome page if there is a to
     <h1>
       Smart Shopping List
     </h1>
-    <ul
-      class="sc-iBPRYJ iosesp"
-    />
+    <ul />
     <nav
       class="sc-bdfBwQ drwle"
     >

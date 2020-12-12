@@ -2,9 +2,9 @@ import { cleanup } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { PATHS } from '../../utils/constants';
 import { createIntegrationTestWrapper } from '../../utils/testUtils';
-import ShoppingListPage from './ShoppingListPage';
+import AddItemScreen from './AddItemScreen';
 
-describe('<ShoppingListPage />', () => {
+describe('<AddItemScreen />', () => {
   let history;
   beforeEach(() => {
     history = createMemoryHistory();
@@ -14,18 +14,15 @@ describe('<ShoppingListPage />', () => {
     localStorage.clear();
   });
   it('redirects to welcome page if there is no token stored in localStorage', () => {
-    history.push(PATHS.list);
-    createIntegrationTestWrapper(ShoppingListPage, { history });
+    history.push(PATHS.add);
+    createIntegrationTestWrapper(AddItemScreen, { history });
     expect(history.location.pathname).toEqual('/');
   });
 
   it('does not redirect to welcome page if there is a token stored in localStorage', () => {
-    history.push(PATHS.list);
+    history.push(PATHS.add);
     localStorage.setItem('token', 'me is token');
-    const { container } = createIntegrationTestWrapper(ShoppingListPage, {
-      history,
-    });
-    expect(history.location.pathname).toEqual(PATHS.list);
-    expect(container).toMatchSnapshot();
+    createIntegrationTestWrapper(AddItemScreen, { history });
+    expect(history.location.pathname).toEqual(PATHS.add);
   });
 });
