@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
+import { PATHS } from '../../utils/constants';
 import ShoppingListItem from './ShoppingListItem';
 
-const ShoppingList = ({ data, isLoading }) => {
-  return isLoading ? <p>Loading</p> : <ul>{data.map(ShoppingListItem)}</ul>;
+const ShoppingList = ({ data, history, isLoading }) => {
+  if (isLoading) return <p>Loading</p>;
+
+  if (!data.length) {
+    return (
+      <Fragment>
+        <p>Your shopping list is currently empty.</p>
+        <button onClick={() => history.push(PATHS.add)}>Add Item</button>
+      </Fragment>
+    );
+  }
+  return <ul>{data.map(ShoppingListItem)}</ul>;
 };
 
 ShoppingList.propTypes = {};
 
-export default ShoppingList;
+export default withRouter(ShoppingList);

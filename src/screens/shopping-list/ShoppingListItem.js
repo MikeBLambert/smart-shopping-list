@@ -9,7 +9,7 @@ const StyledContainer = styled.li`
 
 const StyledButton = styled.button``;
 
-const ListItem = ({ itemName }, index) => {
+const ShoppingListItem = ({ itemName }, index) => {
   return (
     <StyledContainer key={`${itemName}_${index}`}>
       <input type="checkbox" id="item" />
@@ -20,6 +20,6 @@ const ListItem = ({ itemName }, index) => {
   );
 };
 
-ListItem.propTypes = {};
+ShoppingListItem.propTypes = {};
 
-export default ListItem;
+export default ShoppingListItem;
