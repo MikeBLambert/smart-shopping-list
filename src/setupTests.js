@@ -1,5 +1,6 @@
 import React from 'react';
 import MockDate from 'mockdate';
+import '@testing-library/jest-dom';
 
 MockDate.set('12/08/1983');
 
