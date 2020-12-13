@@ -14,7 +14,13 @@ const ShoppingList = ({ data, history, isLoading }) => {
       </Fragment>
     );
   }
-  return <ul>{data.map(ShoppingListItem)}</ul>;
+  return (
+    <ul>
+      {data.map(({ id, ...rest }) => (
+        <ShoppingListItem key={id} {...rest} />
+      ))}
+    </ul>
+  );
 };
 
 ShoppingList.propTypes = {};

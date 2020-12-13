@@ -1,5 +1,9 @@
 import React from 'react';
+import { string } from 'prop-types';
+import { withFirestore } from 'react-firestore';
 import styled from 'styled-components';
+import { useToken } from '../../utils/hooks';
+import dayjs from 'dayjs';
 
 const StyledContainer = styled.li`
   display: flex;
@@ -9,10 +13,27 @@ const StyledContainer = styled.li`
 
 const StyledButton = styled.button``;
 
-const ShoppingListItem = ({ itemName }, index) => {
+const ShoppingListItem = ({ firestore, itemName, id, lastPurchaseDate }) => {
+  const token = useToken();
+  const onCheckboxChange = ({ target: { checked } }) => {
+    firestore
+      .collection(token)
+      .doc(id)
+      .update({ lastPurchaseDate: checked ? Date.now() : null });
+  };
+
+  const hoursSincePurchase = dayjs(lastPurchaseDate).diff(dayjs(), 'hours');
+
+  const isChecked = !lastPurchaseDate ? false : hoursSincePurchase < 24;
+
   return (
-    <StyledContainer key={`${itemName}_${index}`}>
-      <input type="checkbox" id="item" />
+    <StyledContainer>
+      <input
+        type="checkbox"
+        id="item"
+        checked={isChecked}
+        onChange={onCheckboxChange}
+      />
       <label htmlFor="item">{itemName}</label>
       <StyledButton>details</StyledButton>
       <StyledButton>delete</StyledButton>
@@ -20,6 +41,10 @@ const ShoppingListItem = ({ itemName }, index) => {
   );
 };
 
-ShoppingListItem.propTypes = {};
+ShoppingListItem.propTypes = {
+  itemName: string,
+};
 
-export default ShoppingListItem;
+export const ShoppingListItemUnwrapped = ShoppingListItem;
+
+export default withFirestore(ShoppingListItem);

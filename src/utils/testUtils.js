@@ -13,3 +13,10 @@ export const createIntegrationTestWrapper = (
     </Router>,
   );
 };
+
+const update = jest.fn();
+const doc = jest.fn(() => ({ update }));
+const collection = jest.fn(() => ({ doc }));
+const firestore = { collection };
+
+export const mockFirebase = { firestore, collection, doc, update };

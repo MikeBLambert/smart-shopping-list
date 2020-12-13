@@ -18,7 +18,6 @@ const WelcomeScreen = ({ firestore, history }) => {
 
   const handleNewTokenClick = () => {
     const token = getToken();
-    console.log('click');
     localStorage.setItem('token', token);
     history.push(PATHS.list);
   };

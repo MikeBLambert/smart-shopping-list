@@ -10,7 +10,10 @@ const ShoppingListScreen = () => {
   return (
     <NavPage>
       <h1>Smart Shopping List</h1>
-      <FirestoreCollection path={token} render={ShoppingList} />
+      <FirestoreCollection
+        path={token}
+        render={(props) => <ShoppingList {...props} />}
+      />
     </NavPage>
   );
 };

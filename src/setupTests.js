@@ -1,4 +1,7 @@
 import React from 'react';
+import MockDate from 'mockdate';
+
+MockDate.set('12/08/1983');
 
 jest.mock('react-firestore', () => ({
   ...jest.requireActual('react-firestore'),

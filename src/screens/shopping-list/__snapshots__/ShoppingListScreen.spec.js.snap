@@ -8,7 +8,12 @@ exports[`<ShoppingListScreen /> does not redirect to welcome page if there is a 
     <h1>
       Smart Shopping List
     </h1>
-    <ul />
+    <p>
+      Your shopping list is currently empty.
+    </p>
+    <button>
+      Add Item
+    </button>
     <nav
       class="sc-bdfBwQ drwle"
     >
